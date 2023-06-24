@@ -18,6 +18,18 @@ public class TileView : MonoBehaviour
     private Color selectEnterColor = Color.white;
 
     [SerializeField]
+    private Color movingColor = Color.white;
+
+    [SerializeField]
+    private Color movingEnterColor = Color.white;
+
+    [SerializeField]
+    private Color attackColor = Color.white;
+
+    [SerializeField]
+    private Color attackEnterColor = Color.white;
+
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
@@ -43,6 +55,10 @@ public class TileView : MonoBehaviour
             (DefaultState, _) => defaultColor,
             (SelectedState, true) => selectEnterColor,
             (SelectedState, _) => selectColor,
+            (MovingState, true) => movingEnterColor,
+            (MovingState, _) => movingColor,
+            (AttackState, true) => attackEnterColor,
+            (AttackState, _) => attackColor,
             _ => spriteRenderer.color
         };
     }

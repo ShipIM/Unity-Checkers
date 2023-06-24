@@ -6,22 +6,16 @@ using System.Linq;
 public class Unit : MonoBehaviour
 {
     [SerializeField]
-    private Vector2Int[] moves;
+    private Vector2[] moves;
+    public Vector2[] Moves => moves;
 
     [SerializeField]
-    private Vector2Int[] attackMoves;
+    private Vector2[] attackMoves;
+    public Vector2[] AttackMoves => attackMoves;
 
     [SerializeField]
     private FieldTile tile;
-
-    [SerializeField]
-    private Color moveColor = Color.white;
-
-    [SerializeField]
-    private Color attackColor = Color.white;
-
-    [SerializeField]
-    private Color universalColor = Color.white;
+    public FieldTile Tile => tile;
 
     [SerializeField]
     private float spacing;
@@ -33,13 +27,13 @@ public class Unit : MonoBehaviour
     private Transform _transform;
     public Transform Transform => _transform;
 
-    public Vector2Int[] Moves => moves;
-    public Vector2Int[] AttackMover => attackMoves;
-
     public void FindTile()
     {
         if (this.tile != null)
+        {
             this.tile.SetUnit(null);
+            this.tile = null;
+        }
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(_transform.position, _transform.localScale, 0);
 

@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0}
+  unit: {fileID: 0}
   _gameObject: {fileID: 6541103499223470871}
   _transform: {fileID: 4504801189211348816}
 --- !u!114 &-8486468348444755785
@@ -118,6 +119,10 @@ MonoBehaviour:
   enterColor: {r: 0.65882355, g: 1, b: 0.68235296, a: 1}
   selectColor: {r: 0.49019608, g: 1, b: 0.43137255, a: 1}
   selectEnterColor: {r: 0.26666668, g: 1, b: 0.14901961, a: 1}
+  movingColor: {r: 1, g: 0.627451, b: 1, a: 1}
+  movingEnterColor: {r: 1, g: 0.3137255, b: 1, a: 1}
+  attackColor: {r: 1, g: 0.68785655, b: 0, a: 1}
+  attackEnterColor: {r: 1, g: 0.39215687, b: 0, a: 1}
   spriteRenderer: {fileID: 382209611433776392}
   tile: {fileID: 5475930694582904388}
 --- !u!60 &2046946630043199620
