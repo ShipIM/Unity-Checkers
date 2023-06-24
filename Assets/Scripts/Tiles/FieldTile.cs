@@ -9,10 +9,20 @@ public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     [SerializeField]
     private Vector2 position;
     public Vector2 Position => position;
+
+    [SerializeField]
+    private Unit unit;
+
     public void Initialize(Vector2 position)
     {
         this.position = position;
     }
+
+    [SerializeField]
+    private GameObject _gameObject;
+
+    [SerializeField]
+    private Transform _transform;
 
     private StateMachine stateMachine;
     public State CurrentState => stateMachine.CurrentState;
@@ -25,6 +35,9 @@ public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     private bool pointerEnter;
     public bool PointerEnter => pointerEnter;
+
+    private bool haveUnit;
+    public bool HaveUnit => haveUnit;
 
     public delegate void StateHandler(State currentState, State oldState, FieldTile sender);
     public event StateHandler StateChanged;
@@ -39,6 +52,22 @@ public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     {
         if (CurrentState is SelectedState)
             stateMachine.ChangeState(defaultState);
+    }
+
+    public void SetUnit(Unit unit = null)
+    {
+        if (unit == null)
+        {
+            this.unit = null;
+            haveUnit = false;
+        }
+        else
+        {
+            unit.Transform.position = new Vector3(_transform.position.x, _transform.position.y);
+
+            this.unit = unit;
+            haveUnit = true;
+        }
     }
 
     private void Awake()

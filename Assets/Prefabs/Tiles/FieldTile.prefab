@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0}
+  _gameObject: {fileID: 6541103499223470871}
+  _transform: {fileID: 4504801189211348816}
 --- !u!114 &-8486468348444755785
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -48,9 +48,11 @@ public class LevelManager : MonoBehaviour
         {
             for (int i = 0; i < listedTiles.Count;)
             {
-                DestroyImmediate(listedTiles[i].gameObject);
-
-                listedTiles.RemoveAt(i);
+                if (listedTiles[i].gameObject.activeInHierarchy)
+                {
+                    DestroyImmediate(listedTiles[i].gameObject);
+                    listedTiles.RemoveAt(i);
+                }
             }
         }
         
