@@ -64,8 +64,6 @@ public class LevelData : MonoBehaviour
 
     private void TryRenderMoves(State state, State oldState, FieldTile tile)
     {
-        print(state + " " + oldState + " " + tile.HaveUnit);
-
         if (state is SelectedState && oldState is DefaultState && tile.HaveUnit)
         {
             movingTiles = SetMovingTiles(tile.Position, tile.Unit.Moves, tile.Unit.AttackMoves);
@@ -114,7 +112,6 @@ public class LevelData : MonoBehaviour
 
     private FieldTile FindTile(Vector2 unitPosition, Vector2 move, bool haveUnit)
     {
-        print(unitPosition.x + " " + unitPosition.y + " " + move.x + " " + move.y);
         return tiles.FirstOrDefault(tile => tile.Position == move + unitPosition && tile.HaveUnit == haveUnit);
     }
 
