@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -26,6 +25,8 @@ public class LevelData : MonoBehaviour
         {
             tile.StateChanged += TrySetSelected;
             tile.StateChanged += TryRenderMoves;
+
+            tile.ClickMoving += Move;
         }
     }
 
@@ -35,6 +36,8 @@ public class LevelData : MonoBehaviour
         {
             tile.StateChanged -= TrySetSelected;
             tile.StateChanged -= TryRenderMoves;
+
+            tile.ClickMoving -= Move;
         }
     }
 
@@ -122,5 +125,12 @@ public class LevelData : MonoBehaviour
             movingTiles.ForEach(tile => tile.SetDefault());
             movingTiles.Clear();
         }
+    }
+
+    private void Move(FieldTile tile)
+    {
+        unit.Initialize(tile);
+
+        selectedTile.Unselect();
     }
 }

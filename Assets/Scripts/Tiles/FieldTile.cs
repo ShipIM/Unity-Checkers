@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -24,6 +22,7 @@ public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     [SerializeField]
     private Transform _transform;
+    public Transform Transform => _transform;
 
     private StateMachine stateMachine;
     public State CurrentState => stateMachine.CurrentState;
@@ -56,6 +55,8 @@ public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     public delegate void PointerHandler(PointerEventData eventData);
     public event PointerHandler PointerClick;
 
+    public Action<FieldTile> ClickMoving;
+
     public void Unselect()
     {
         if (CurrentState is SelectedState)
@@ -64,6 +65,11 @@ public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     public void SetUnit(Unit unit = null)
     {
+        if (this.unit != null && unit != null && unit != this.unit)
+        {
+            Destroy(this.unit.GameObject);
+        }
+
         if (unit == null)
         {
             this.unit = null;

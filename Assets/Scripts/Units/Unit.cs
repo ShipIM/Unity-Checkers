@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
@@ -22,19 +20,19 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     private GameObject _gameObject;
+    public GameObject GameObject => _gameObject;
 
     [SerializeField]
     private Transform _transform;
     public Transform Transform => _transform;
 
+    private void Start()
+    {
+        FindTile();
+    }
+
     public void FindTile()
     {
-        if (this.tile != null)
-        {
-            this.tile.SetUnit(null);
-            this.tile = null;
-        }
-
         Collider2D[] colliders = Physics2D.OverlapBoxAll(_transform.position, _transform.localScale, 0);
 
         if (colliders.Length == 0)
@@ -51,5 +49,14 @@ public class Unit : MonoBehaviour
             tile.SetUnit(this);
             this.tile = tile;
         }
+    }
+
+    public void Initialize(FieldTile tile)
+    {
+        this.tile.SetUnit();
+
+        _transform.position = tile.transform.position;
+        tile.SetUnit(this);
+        this.tile = tile;
     }
 }

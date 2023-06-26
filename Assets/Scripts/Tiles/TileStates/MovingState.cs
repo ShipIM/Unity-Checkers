@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MovingState : FieldTileState
 {
@@ -11,16 +9,21 @@ public class MovingState : FieldTileState
 
     public override void Enter()
     {
-        
+        this.tile.PointerClick += Move;
     }
 
     public override void Exit()
     {
-        
+        this.tile.PointerClick -= Move;
     }
 
     public override void Update()
     {
         
+    }
+
+    private void Move(PointerEventData eventData)
+    {
+        this.tile.ClickMoving?.Invoke(this.tile);
     }
 }
