@@ -12,7 +12,7 @@ public class FieldTileFactory : MonoBehaviour, Factory<FieldTile>
         return Object.Instantiate(prefab, root);
     }
 
-    public FieldTile Create(Vector3 position, Transform root)
+    public FieldTile Create(Vector3 position, Vector2Int index, Transform root)
     {
         FieldTile tile = Create(root);
         var renderer = prefab.GetComponent<SpriteRenderer>();
@@ -21,7 +21,7 @@ public class FieldTileFactory : MonoBehaviour, Factory<FieldTile>
         Vector3 resultPosition = new(position.x * size.x / 2, position.y * size.y / 2);
 
         tile.transform.position = transform.position + resultPosition;
-        tile.Initialize(new Vector2(resultPosition.x, resultPosition.y));
+        tile.Initialize(index);
 
         return tile;
     }

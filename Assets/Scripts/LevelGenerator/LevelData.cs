@@ -5,7 +5,10 @@ using System.Linq;
 
 public class LevelData : MonoBehaviour
 {
-    private FieldTile[] tiles;
+    [SerializeField]
+    private LevelManager levelManager;
+
+    //private FieldTile[] tiles;
     private FieldTile selectedTile;
 
     private List<FieldTile> movingTiles;
@@ -15,13 +18,7 @@ public class LevelData : MonoBehaviour
 
     private void Awake()
     {
-        FieldTile[] tiles = FindObjectsOfType<FieldTile>();
-
-        if (tiles.Length == 0) throw new NullReferenceException("Tiles not found");
-
-        this.tiles = tiles;
-
-        foreach(FieldTile tile in tiles)
+        foreach(FieldTile tile in levelManager.ListedTiles)
         {
             tile.StateChanged += TrySetSelected;
             tile.StateChanged += TryRenderMoves;
@@ -32,7 +29,7 @@ public class LevelData : MonoBehaviour
 
     private void OnDisable()
     {
-        foreach(FieldTile tile in tiles)
+        foreach(FieldTile tile in levelManager.ListedTiles)
         {
             tile.StateChanged -= TrySetSelected;
             tile.StateChanged -= TryRenderMoves;
@@ -74,23 +71,22 @@ public class LevelData : MonoBehaviour
         }
     }
 
-    private List<FieldTile> SetMovingTiles(Vector2 unitPosition, Vector2[] moves, Vector2[] attackMoves)
+    private List<FieldTile> SetMovingTiles(Vector2Int unitPosition, Vector2Int[] moves, Vector2Int[] attackMoves)
     {
         List<FieldTile> tiles = new();
 
-        foreach(Vector2 move in moves)
+        foreach(Vector2Int move in moves)
         {
             FieldTile movingTile = FindTile(unitPosition, move, false);
 
             if (movingTile != null)
             {
-                print("selected");
                 movingTile.SetMoving();
                 tiles.Add(movingTile);
             }
         }
 
-        foreach (Vector2 attackMove in attackMoves)
+        foreach (Vector2Int attackMove in attackMoves)
         {
             FieldTile attackTile = FindTile(unitPosition, attackMove, true);
 
@@ -113,9 +109,9 @@ public class LevelData : MonoBehaviour
         return tiles;
     }
 
-    private FieldTile FindTile(Vector2 unitPosition, Vector2 move, bool haveUnit)
+    private FieldTile FindTile(Vector2Int unitPosition, Vector2Int move, bool haveUnit)
     {
-        return tiles.FirstOrDefault(tile => tile.Position == move + unitPosition && tile.HaveUnit == haveUnit);
+        return levelManager.ListedTiles.FirstOrDefault(tile => tile.Position == move + unitPosition && tile.HaveUnit == haveUnit);
     }
 
     private void ClearMoving()

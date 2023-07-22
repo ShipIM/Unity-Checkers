@@ -11,19 +11,17 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     private float spacing;
-
-    [SerializeField]
-    private FieldTile[,] indexedTiles;
+    public float Spacing => spacing;
 
     [SerializeField]
     private List<FieldTile> listedTiles;
+    public List<FieldTile> ListedTiles => listedTiles;
 
     [ContextMenu("Create")]
     public void Create()
     {
-        this.Clear();
+        Clear();
 
-        indexedTiles = new FieldTile[size.x, size.y];
         listedTiles = new();
 
         for (int i = 0; i < size.x; i++)
@@ -32,9 +30,8 @@ public class LevelManager : MonoBehaviour
             {
                 Vector3 position = new((i + j) * spacing, (i - j) * spacing);
 
-                FieldTile tile = groundFactory.Create(position, transform);
+                FieldTile tile = groundFactory.Create(position, new Vector2Int(i, j), transform);
 
-                indexedTiles[i, j] = tile;
                 listedTiles.Add(tile);
             }
         }
@@ -54,7 +51,5 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
-        
-        this.indexedTiles = null;
     }
 }

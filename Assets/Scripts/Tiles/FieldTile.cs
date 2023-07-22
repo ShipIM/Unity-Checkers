@@ -5,14 +5,14 @@ using UnityEngine.EventSystems;
 public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
-    private Vector2 position;
-    public Vector2 Position => position;
+    private Vector2Int position;
+    public Vector2Int Position => position;
 
     [SerializeField]
     private Unit unit;
     public Unit Unit => unit;
 
-    public void Initialize(Vector2 position)
+    public void Initialize(Vector2Int position)
     {
         this.position = position;
     }

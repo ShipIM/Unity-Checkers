@@ -98,14 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moves:
-  - {x: 1.075, y: 0}
-  - {x: 2.15, y: 0}
-  - {x: 3.225, y: 0}
-  - {x: -1.075, y: 0}
-  - {x: -2.15, y: 0}
-  - {x: -3.225, y: 0}
+  - {x: 0, y: 1}
+  - {x: 1, y: 0}
   attackMoves: []
   tile: {fileID: 0}
-  spacing: 1.05
   _gameObject: {fileID: 2478791006887248878}
   _transform: {fileID: 2723269264524127150}

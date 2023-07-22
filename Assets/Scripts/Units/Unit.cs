@@ -4,19 +4,16 @@ using System.Linq;
 public class Unit : MonoBehaviour
 {
     [SerializeField]
-    private Vector2[] moves;
-    public Vector2[] Moves => moves;
+    private Vector2Int[] moves;
+    public Vector2Int[] Moves => moves;
 
     [SerializeField]
-    private Vector2[] attackMoves;
-    public Vector2[] AttackMoves => attackMoves;
+    private Vector2Int[] attackMoves;
+    public Vector2Int[] AttackMoves => attackMoves;
 
     [SerializeField]
     private FieldTile tile;
     public FieldTile Tile => tile;
-
-    [SerializeField]
-    private float spacing;
 
     [SerializeField]
     private GameObject _gameObject;
