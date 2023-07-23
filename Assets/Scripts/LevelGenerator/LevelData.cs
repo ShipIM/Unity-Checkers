@@ -8,7 +8,6 @@ public class LevelData : MonoBehaviour
     [SerializeField]
     private LevelManager levelManager;
 
-    //private FieldTile[] tiles;
     private FieldTile selectedTile;
 
     private List<FieldTile> movingTiles;

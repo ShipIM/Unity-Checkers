@@ -18,7 +18,7 @@ public class FieldTileFactory : MonoBehaviour, Factory<FieldTile>
             1 => black,
             _ => null,
         };
-
+            
         return Object.Instantiate(prefab, root);
     }
 

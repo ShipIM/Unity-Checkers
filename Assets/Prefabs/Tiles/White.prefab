@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba39bf94d8793e4aac1acdc40618854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 0.8117647, g: 0.8117647, b: 0.62352943, a: 1}
   enterColor: {r: 0.65882355, g: 1, b: 0.68235296, a: 1}
   selectColor: {r: 0.49019608, g: 1, b: 0.43137255, a: 1}
   selectEnterColor: {r: 0.26666668, g: 1, b: 0.14901961, a: 1}
