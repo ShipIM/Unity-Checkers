@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Linq;
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Vector2Int[] moves;
@@ -23,7 +25,7 @@ public class Unit : MonoBehaviour
     private Transform _transform;
     public Transform Transform => _transform;
 
-    private void Start()
+    /* private void Start()
     {
         FindTile();
     }
@@ -34,6 +36,8 @@ public class Unit : MonoBehaviour
 
         if (colliders.Length == 0)
             return;
+
+        Debug.Log(colliders.Length);
 
         FieldTile tile = null;
         colliders.First(collider => {
@@ -46,7 +50,7 @@ public class Unit : MonoBehaviour
             tile.SetUnit(this);
             this.tile = tile;
         }
-    }
+    } */
 
     public void Initialize(FieldTile tile)
     {
@@ -55,5 +59,20 @@ public class Unit : MonoBehaviour
         _transform.position = tile.transform.position;
         tile.SetUnit(this);
         this.tile = tile;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        tile.OnPointerClick(eventData);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        tile.OnPointerEnter(eventData);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        tile.OnPointerExit(eventData);
     }
 }
