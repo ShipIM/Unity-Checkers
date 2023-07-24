@@ -129,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7069534688694700229, guid: 0846bf3b1f2be7a45b37ffab6c5caa4a, type: 3}
       propertyPath: moves.Array.data[0].x
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7069534688694700229, guid: 0846bf3b1f2be7a45b37ffab6c5caa4a, type: 3}
       propertyPath: moves.Array.data[0].y
@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7069534688694700229, guid: 0846bf3b1f2be7a45b37ffab6c5caa4a, type: 3}
       propertyPath: moves.Array.data[1].y
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7421538909489125302, guid: 0846bf3b1f2be7a45b37ffab6c5caa4a, type: 3}
       propertyPath: m_RootOrder

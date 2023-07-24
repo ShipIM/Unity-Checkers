@@ -54,7 +54,8 @@ public class Unit : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     public void Initialize(FieldTile tile)
     {
-        this.tile.SetUnit();
+        if (this.tile != null)
+            this.tile.SetUnit();
 
         _transform.position = tile.transform.position;
         tile.SetUnit(this);
