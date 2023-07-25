@@ -23,6 +23,7 @@ public class LevelData : MonoBehaviour
             tile.StateChanged += TryRenderMoves;
 
             tile.ClickMoving += Move;
+            tile.ClickAttacking += Attack;
         }
     }
 
@@ -34,6 +35,7 @@ public class LevelData : MonoBehaviour
             tile.StateChanged -= TryRenderMoves;
 
             tile.ClickMoving -= Move;
+            tile.ClickAttacking -= Attack;
         }
     }
 
@@ -76,7 +78,7 @@ public class LevelData : MonoBehaviour
 
         foreach(Vector2Int move in moves)
         {
-            FieldTile movingTile = FindTile(unitPosition, move, false);
+            FieldTile movingTile = FindMoveTile(unitPosition, move);
 
             if (movingTile != null)
             {
@@ -87,7 +89,7 @@ public class LevelData : MonoBehaviour
 
         foreach (Vector2Int attackMove in attackMoves)
         {
-            FieldTile attackTile = FindTile(unitPosition, attackMove, true);
+            FieldTile attackTile = FindAttackTile(unitPosition, attackMove);
 
             if (attackTile != null)
             {
@@ -108,9 +110,36 @@ public class LevelData : MonoBehaviour
         return tiles;
     }
 
-    private FieldTile FindTile(Vector2Int unitPosition, Vector2Int move, bool haveUnit)
+    private FieldTile FindAttackTile(Vector2Int unitPosition, Vector2Int move)
     {
-        return levelManager.ListedTiles.FirstOrDefault(tile => tile.Position == move + unitPosition && tile.HaveUnit == haveUnit);
+        List<FieldTile> affected = FindLine(unitPosition, move);
+
+        if (affected.Count < 2 || affected[^1] == null || affected[^1].HaveUnit || !affected[^2].HaveUnit)
+            return null;
+
+        bool isFree = true;
+        for (int i = 0; i < affected.Count - 2; i++)
+            isFree = isFree && !affected[i].HaveUnit; ;
+        
+        return isFree ? affected[^1] : null;
+    }
+
+    private List<FieldTile> FindLine(Vector2Int unitPosition, Vector2Int move)
+    {
+        List<FieldTile> affected = new();
+        Vector2Int step = move / Math.Max(Math.Abs(move.x), Math.Abs(move.y));
+
+        for (int i = 1; step * i != move; i++)
+            affected.Add(levelManager.ListedTiles.FirstOrDefault(tile => tile.Position == step * i + unitPosition));
+
+        affected.Add(levelManager.ListedTiles.FirstOrDefault(tile => tile.Position == move + unitPosition));
+
+        return affected;
+    }
+
+    private FieldTile FindMoveTile(Vector2Int unitPosition, Vector2Int move)
+    {
+        return levelManager.ListedTiles.FirstOrDefault(tile => tile.Position == move + unitPosition && tile.HaveUnit == false);
     }
 
     private void ClearMoving()
@@ -127,5 +156,15 @@ public class LevelData : MonoBehaviour
         unit.Initialize(tile);
 
         selectedTile.Unselect();
+    }
+
+    private void Attack(FieldTile tile)
+    {
+        Vector2Int current = unit.Tile.Position;
+
+        List<FieldTile> affected = FindLine(current, tile.Position - current);
+        affected.ForEach((tile) => tile.SetUnit(true));
+
+        Move(tile);
     }
 }

@@ -24,6 +24,6 @@ public class AttackState : FieldTileState
 
     private void Attack(PointerEventData eventData)
     {
-        this.tile.ClickMoving?.Invoke(this.tile);
+        this.tile.ClickAttacking?.Invoke(this.tile);
     }
 }

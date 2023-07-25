@@ -25,40 +25,13 @@ public class Unit : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     private Transform _transform;
     public Transform Transform => _transform;
 
-    /* private void Start()
-    {
-        FindTile();
-    }
-
-    public void FindTile()
-    {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(_transform.position, _transform.localScale, 0);
-
-        if (colliders.Length == 0)
-            return;
-
-        Debug.Log(colliders.Length);
-
-        FieldTile tile = null;
-        colliders.First(collider => {
-            tile = collider.GetComponent<FieldTile>();
-            return tile != null;
-        });
-
-        if (tile != null)
-        {
-            tile.SetUnit(this);
-            this.tile = tile;
-        }
-    } */
-
     public void Initialize(FieldTile tile)
     {
         if (this.tile != null)
             this.tile.SetUnit();
 
         _transform.position = tile.transform.position;
-        tile.SetUnit(this);
+        tile.SetUnit(false, this);
         this.tile = tile;
     }
 

@@ -56,6 +56,7 @@ public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     public event PointerHandler PointerClick;
 
     public Action<FieldTile> ClickMoving;
+    public Action<FieldTile> ClickAttacking;
 
     public void Unselect()
     {
@@ -63,12 +64,10 @@ public class FieldTile : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
             stateMachine.ChangeState(defaultState);
     }
 
-    public void SetUnit(Unit unit = null)
+    public void SetUnit(bool destroyed = false, Unit unit = null)
     {
-        if (this.unit != null && unit != null && unit != this.unit)
-        {
+        if (this.unit != null && unit == null && destroyed)
             Destroy(this.unit.GameObject);
-        }
 
         if (unit == null)
         {
