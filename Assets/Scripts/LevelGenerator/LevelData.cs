@@ -119,7 +119,7 @@ public class LevelData : MonoBehaviour
 
         bool isFree = true;
         for (int i = 0; i < affected.Count - 2; i++)
-            isFree = isFree && !affected[i].HaveUnit; ;
+            isFree = isFree && !affected[i].HaveUnit;
         
         return isFree ? affected[^1] : null;
     }
@@ -127,6 +127,7 @@ public class LevelData : MonoBehaviour
     private List<FieldTile> FindLine(Vector2Int unitPosition, Vector2Int move)
     {
         List<FieldTile> affected = new();
+
         Vector2Int step = move / Math.Max(Math.Abs(move.x), Math.Abs(move.y));
 
         for (int i = 1; step * i != move; i++)
@@ -139,7 +140,13 @@ public class LevelData : MonoBehaviour
 
     private FieldTile FindMoveTile(Vector2Int unitPosition, Vector2Int move)
     {
-        return levelManager.ListedTiles.FirstOrDefault(tile => tile.Position == move + unitPosition && tile.HaveUnit == false);
+        List<FieldTile> affected = FindLine(unitPosition, move);
+
+        bool isFree = true;
+        foreach (FieldTile tile in affected)
+            isFree = isFree && tile != null && !tile.HaveUnit;
+
+        return isFree ? affected[^1] : null;
     }
 
     private void ClearMoving()
