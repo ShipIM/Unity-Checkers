@@ -114,14 +114,18 @@ public class LevelData : MonoBehaviour
     {
         List<FieldTile> affected = FindLine(unitPosition, move);
 
-        if (affected.Count < 2 || affected[^1] == null || affected[^1].HaveUnit || !affected[^2].HaveUnit)
-            return null;
+        int enemies = 0;
+        foreach (FieldTile tile in affected)
+        {
+            if (tile == null) return null;
 
-        bool isFree = true;
-        for (int i = 0; i < affected.Count - 2; i++)
-            isFree = isFree && !affected[i].HaveUnit;
+            if (tile.HaveUnit) enemies++;
+        }
+
+        if (affected.Count < 2 || affected[^1] == null || affected[^1].HaveUnit || enemies > 1 || enemies == 0)
+            return null;
         
-        return isFree ? affected[^1] : null;
+        return affected[^1];
     }
 
     private List<FieldTile> FindLine(Vector2Int unitPosition, Vector2Int move)
